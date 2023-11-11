@@ -11,17 +11,17 @@ public class WorkingHoursFilter implements Filter<String> {
             String[] data = row.split(",");
 
             if (data.length > 0) {
-                String workingHours = data[data.length - 1]; // Assuming working hours is the last element
+                String workingHours = data[data.length - 1];
 
                 if (workingHours.matches("\\d{2}:\\d{2}-\\d{2}:\\d{2}")) {
                     String[] hours = workingHours.split("-");
-                    data[data.length - 1] = hours[0]; // Replace working hours with opening hours
-                    data = Arrays.copyOf(data, data.length + 1); // Extend the array for closing hours
-                    data[data.length - 1] = hours[1]; // Add closing hours at the end
+                    data[data.length - 1] = hours[0];
+                    data = Arrays.copyOf(data, data.length + 1);
+                    data[data.length - 1] = hours[1];
                 } else {
-                    data[data.length - 1] = "NoInfo"; // If format doesn't match, set "NoInfo"
-                    data = Arrays.copyOf(data, data.length + 1); // Extend the array for closing hours
-                    data[data.length - 1] = "NoInfo"; // Add "NoInfo" for closing hours
+                    data[data.length - 1] = "NoInfo";
+                    data = Arrays.copyOf(data, data.length + 1);
+                    data[data.length - 1] = "NoInfo";
                 }
             }
             return String.join(",", data);
