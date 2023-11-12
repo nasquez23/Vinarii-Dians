@@ -21,7 +21,15 @@ public class CoordinatesFilter implements Filter<String> {
 
             if(row.contains("WKT")){
                 String[] items = row.split(",");
-                items[0]="latitude,longitude";
+                items[0]="lat,lon";
+                return String.join(",", items);
+            }
+
+            if(row.trim().startsWith(",,")){
+
+                String[] items = row.split(",");
+                items[0]="NoInfo";
+                items[1]="NoInfo";
                 return String.join(",", items);
             }
 
