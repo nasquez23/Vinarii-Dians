@@ -33,6 +33,8 @@ public class PipeAndFilterProblem {
             string = pipeWineries.runFilters(scanner.nextLine());
             if (!Objects.equals(string, ""))
                 wineries.add(string);
+            else
+                wineries.add("It doesn't exist");
         }
 
     }
