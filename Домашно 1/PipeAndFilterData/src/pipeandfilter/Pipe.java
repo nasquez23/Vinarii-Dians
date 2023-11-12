@@ -21,4 +21,12 @@ public class Pipe<T> {
     public void clearFilters() {
         filters.clear();
     }
+
+    public T runFilters(T input){
+        for (Filter<T> filter: filters) {
+            input = filter.execute(input);
+
+        }
+        return input;
+    }
 }
