@@ -19,6 +19,12 @@ public class CoordinatesFilter implements Filter<String> {
         String[] modifiedData = Arrays.stream(inputFile.split("/n")).map(row -> {
             String[] data = row.split(",");
 
+            if(row.contains("WKT")){
+                String[] items = row.split(",");
+                items[0]="latitude,longitude";
+                return String.join(",", items);
+            }
+
             Matcher matcher = pattern.matcher(data[0]);
 
             if (matcher.find()) {

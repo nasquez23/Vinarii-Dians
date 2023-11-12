@@ -1,3 +1,7 @@
+package pipeandfilter.Impl;
+
+import pipeandfilter.Filter;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
