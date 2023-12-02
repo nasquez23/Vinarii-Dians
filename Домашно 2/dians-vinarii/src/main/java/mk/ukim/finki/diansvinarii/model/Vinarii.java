@@ -1,6 +1,19 @@
 package mk.ukim.finki.diansvinarii.model;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Entity
+@Table(name = "[vinarii]")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Vinarii {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     String imeVinarija;
     String email;
     String broj;
@@ -15,40 +28,20 @@ public class Vinarii {
         this.lokacija = lokacija;
     }
 
-    public String getImeVinarija() {
-        return imeVinarija;
-    }
-
     public void setImeVinarija(String imeVinarija) {
         this.imeVinarija = imeVinarija;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getBroj() {
-        return broj;
-    }
-
     public void setBroj(String broj) {
         this.broj = broj;
     }
 
-    public String getWebsite() {
-        return website;
-    }
-
     public void setWebsite(String website) {
         this.website = website;
-    }
-
-    public String getLokacija() {
-        return lokacija;
     }
 
     public void setLokacija(String lokacija) {
