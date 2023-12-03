@@ -1,0 +1,55 @@
+/* Contact.css */
+
+.submit-form {
+    width: 80%; /* Adjust the maximum width as needed */
+    margin: 100px auto; /* Center the form horizontally */
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    width: 450px;
+    padding: 30px;
+    margin: auto;
+    border-radius: 10px;
+  }
+  
+  label {
+    margin-bottom: 8px;
+  }
+  
+  /* Use a two-column layout for labels and inputs */
+  label, input, textarea {
+    width: 100%;
+    box-sizing: border-box; /* Include padding and border in the width */
+  }
+  
+  label {
+    text-align: left; /* Align labels to the left */
+  }
+  
+  input,
+  textarea {
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    border: 1px solid black;
+  }
+  
+  input[type="submit"] {
+    background-color: #DC143C;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+  }
+
+  input[type="submit"]:hover {
+    background-color: black;
+  }
+  
+  /* Add more styling as needed */
+  
