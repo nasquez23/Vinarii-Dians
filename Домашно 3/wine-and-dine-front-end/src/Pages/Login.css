@@ -1,0 +1,28 @@
+#LoginLogo{
+    width: 70%;
+}
+#login p{
+    margin: 0;
+}
+.loginWrapper{
+    text-align: center;
+    width: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+#login{
+    width: 50rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#login h1, #login h2{
+    padding: 0;
+    margin: 0.5rem;
+}
+#inputFields{
+
+}

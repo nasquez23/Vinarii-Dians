@@ -1,0 +1,17 @@
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 10vh;
+    background-color: #DC143C;
+    width: 100%;
+    padding: 10px;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.title{
+    font-size: 30px;
+    color: white;
+    padding-left: 20px;
+}
