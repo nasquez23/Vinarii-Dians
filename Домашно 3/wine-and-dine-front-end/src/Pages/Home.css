@@ -1,0 +1,25 @@
+.home {
+  width: 75%;
+  margin: auto auto 150px auto;
+}
+
+.buttons{
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+  display: flex;
+  margin: auto;
+  margin-top: 20px;
+  font-size: 30px;
+  color: #808080;
+  gap: 5px;
+}
+
+.buttons button{
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #808080;
+  font-family: 'Open sans', sans-serif;
+}

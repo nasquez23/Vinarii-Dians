@@ -1,24 +1,28 @@
-import './Contact.css';
+import "./Contact.css";
 
 const Contact = () => {
-  
   const submitHandler = (e) => {
     e.preventDefault();
   };
 
   return (
-    <div className='submit-form'>
+    <div className="submit-form">
+      <h1>Контакт</h1>
       <form onSubmit={submitHandler}>
-        <label htmlFor='name'>Име: 
-          <input type="text" name="name"  />
+        <label htmlFor="name">
+          Име:
+          <input type="text" name="name" />
         </label>
-        <label htmlFor='surname'>Презиме: 
+        <label htmlFor="surname">
+          Презиме:
           <input type="text" name="surname" />
         </label>
-        <label htmlFor='email'>Емаил: 
+        <label htmlFor="email">
+          Емаил:
           <input type="email" name="email" />
         </label>
-        <label htmlFor='message'>Порака: 
+        <label htmlFor="message">
+          Порака:
           <textarea name="message"></textarea>
         </label>
 
@@ -26,6 +30,6 @@ const Contact = () => {
       </form>
     </div>
   );
-}
+};
 
 export default Contact;
