@@ -29,9 +29,10 @@ public class ReviewController {
         return reviewService.findAllByWinery_Id(id);
     }
 
-    @GetMapping("/best/{id}/{num}")
-    public List<Review> getBestNReviewsByWineryId(@PathVariable Long id, @PathVariable int num){
-        return reviewService.findAllByWinery_Id(id);
+    @GetMapping(value = {"/best/{id}/{num}", "/best/{id}"})
+    public List<Review> getBestNReviewsByWineryId(@PathVariable Long id, @PathVariable (required = false) Integer num){
+        if(num != null) return reviewService.findAllByWinery_Id(id);
+        return reviewService.getNBestByWineryId(id, num);
     }
 
     @GetMapping("/score/{id}")
@@ -44,6 +45,11 @@ public class ReviewController {
                             @RequestParam (required = false) String desc,
                             @RequestParam @DateTimeFormat LocalDateTime timestamp){
         return reviewService.create(id, score, desc, timestamp);
+    }
+
+    @GetMapping("/{id}")
+    public Review getReview(@PathVariable Long id){
+        return reviewService.findById(id);
     }
 
 

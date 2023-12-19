@@ -32,12 +32,19 @@ public class ReviewServiceImpl implements ReviewService {
     public List<Review> getNMostRecentByWineryId(Long id, int n){
         return reviewRepository.findAllByWinery_IdOrderByTimestampDesc(id).stream().limit(n).toList();
     }
+    public List<Review> getNBestByWineryId(Long id, int n){
+        return reviewRepository.findAllByWinery_IdOrderByScore(id).stream().limit(n).toList();
+    }
 
     public List<Review> findAllByWinery_IdOrderByScore(Long id){
         return reviewRepository.findAllByWinery_IdOrderByScore(id);
     }
     public List<Review> findAllByWinery_IdOrderByTimestampDesc(Long id){
         return reviewRepository.findAllByWinery_IdOrderByTimestampDesc(id);
+    }
+
+    public Review findById(Long id){
+        return reviewRepository.findById(id).orElse(null);
     }
 
     public Review add(Review review){
