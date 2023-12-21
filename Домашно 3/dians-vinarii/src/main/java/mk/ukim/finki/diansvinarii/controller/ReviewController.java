@@ -47,7 +47,7 @@ public class ReviewController {
         return reviewService.create(id, score, desc, timestamp);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/byId/{id}")
     public Review getReview(@PathVariable Long id){
         return reviewService.findById(id);
     }
