@@ -22,4 +22,25 @@
   cursor: pointer;
   color: #808080;
   font-family: 'Open sans', sans-serif;
+  transition: 0.5s;
+}
+
+button:disabled{
+  opacity: 0.5;
+}
+
+button:hover:not(button:disabled){
+  color: #2b2b29;
+}
+
+.review-container{
+  flex-wrap: wrap;
+}
+.review-section button{
+  padding: 0.5rem 2rem;
+  box-sizing: border-box;
+  border: 1px solid #dbb569;
+  border-radius: 1rem;
+  color: #454745;
+  background-color: #00000000;
 }
