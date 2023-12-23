@@ -9,7 +9,7 @@ export default function Review(props) {
     return (
         <div id={"Review"}>
             <div>
-                <h1>{props.review.score}/5</h1>
+                <h1 style={{fontWeight: "lighter"}}><b>{props.review.score}</b>/5</h1>
                 <h4>{timestamp.toLocaleDateString("mk-MK", { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' })}</h4>
 
             </div>
