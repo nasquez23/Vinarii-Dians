@@ -1,41 +1,57 @@
 package mk.ukim.finki.diansvinarii.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
-
 import jakarta.persistence.*;
-import java.util.ArrayList;
+import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import java.util.Collection;
 import java.util.List;
-
-@Entity
-@Table(name="userent",uniqueConstraints = @UniqueConstraint(columnNames="email"))
-
 @Data
-public class User {
+@Entity
+@Table(name = "user-registration")
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "first_name")
     private String firstname;
-    @Column(name = "last_name")
-    private String lastname;
+    private String secondname;
     private String email;
     private String password;
-    private String roles;
 
-    public User() {
+
+    private Role roles;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(roles.name()));
 
     }
 
-    public User(String firstname, String lastname, String email, String password, String roles) {
-
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.password = password;
-        this.roles = roles;
+    @Override
+    public String getUsername() {
+        return email;
     }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
 }
-
