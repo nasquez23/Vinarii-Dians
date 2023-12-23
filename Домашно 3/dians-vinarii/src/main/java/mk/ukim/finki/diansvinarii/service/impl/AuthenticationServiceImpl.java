@@ -3,6 +3,7 @@ package mk.ukim.finki.diansvinarii.service.impl;
 import lombok.RequiredArgsConstructor;
 
 import mk.ukim.finki.diansvinarii.dto.JwtAuthenticationDto;
+import mk.ukim.finki.diansvinarii.dto.RefreshTokenRequest;
 import mk.ukim.finki.diansvinarii.dto.SignInRequest;
 import mk.ukim.finki.diansvinarii.dto.SignUpRequest;
 import mk.ukim.finki.diansvinarii.model.Role;
@@ -49,5 +50,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return jwtAuthenticationDto;
 
     }
-
+public JwtAuthenticationDto refreshToken(RefreshTokenRequest refreshTokenRequest){
+        String userEmail=jwtService.extractUserName(refreshTokenRequest.getToken());
+        User user=userRepository.findByEmail(userEmail).orElseThrow();
+        if(jwtService.isTokenValid(refreshTokenRequest.getToken(),user)){
+            var jwt=jwtService.generateToken(user);
+            JwtAuthenticationDto jwtAuthenticationDto=new JwtAuthenticationDto();
+            jwtAuthenticationDto.setToken(jwt);
+            jwtAuthenticationDto.setRefreshToken(refreshTokenRequest.getToken());
+            return jwtAuthenticationDto;
+        }
+        return null;
+}
 }

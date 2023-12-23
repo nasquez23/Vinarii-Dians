@@ -2,6 +2,7 @@ package mk.ukim.finki.diansvinarii.controller;
 import lombok.RequiredArgsConstructor;
 
 import mk.ukim.finki.diansvinarii.dto.JwtAuthenticationDto;
+import mk.ukim.finki.diansvinarii.dto.RefreshTokenRequest;
 import mk.ukim.finki.diansvinarii.dto.SignInRequest;
 import mk.ukim.finki.diansvinarii.dto.SignUpRequest;
 import mk.ukim.finki.diansvinarii.model.User;
@@ -22,5 +23,9 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<JwtAuthenticationDto> signIn(@RequestBody SignInRequest signInRequest){
         return ResponseEntity.ok(authenticationService.login(signInRequest));
+    }
+    @PostMapping("/refresh")
+    public ResponseEntity<JwtAuthenticationDto> refresh(@RequestBody RefreshTokenRequest refreshTokenRequest){
+        return ResponseEntity.ok(authenticationService.refreshToken(refreshTokenRequest));
     }
 }
