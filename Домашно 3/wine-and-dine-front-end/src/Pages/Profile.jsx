@@ -5,9 +5,22 @@ import { AuthContext } from "../AuthContext";
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
+  console.log(user);
 
   return (
-    <div>{user === null ? <Navigate to={"/login"} /> : <div>Profil</div>}</div>
+    <div>
+      {user === null ? (
+        <Navigate to={"/login"} />
+      ) : (
+        <div className="profile">
+          <h2>Профил</h2>
+          <div className="profile-info">
+            <p>Име: </p>
+            <p>Емаил: {user}</p>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 function Login() {
+  const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     if (user) {
@@ -25,8 +25,29 @@ function Login() {
       }
     }
   }
+  
   async function logInWithEmailAndPassword(email, password) {
-    alert("Not implemented yet");
+    try {
+      const response = await fetch("http://localhost:8080/api/v1/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        const userData = await response.json();
+        setUser(email);
+        console.log(userData);
+        alert("Успешно се најавивте!");
+        navigate("/profile");
+      } else {
+        alert("Неуспешна најава! Обидете се повторно.");
+      }
+    } catch (error) {
+      console.error("Грешка при најава: ", error);
+    }
   }
 
   return (

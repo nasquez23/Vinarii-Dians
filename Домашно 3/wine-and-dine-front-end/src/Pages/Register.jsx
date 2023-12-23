@@ -13,8 +13,56 @@ function Register() {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    if (user) navigate("/homepage");
+    if (user) navigate("/");
   }, [user]);
+
+  async function registerWithEmailAndPassword(
+    name,
+    email,
+    password1,
+    password2
+  ) {
+    if (password1 !== password2) {
+      alert("Лозинките не се совпаѓаат!");
+      return;
+    }
+
+    if (
+      name.trim.length === 0 ||
+      email.trim.length === 0 ||
+      password1.trim.length === 0 ||
+      password2.trim.length === 0
+    ) {
+      alert("Ве молиме пополнете ги сите полиња!");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "http://localhost:8080/api/v1/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            password: password1,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        alert("Успешно се регистриравте!");
+        navigate("/login");
+      } else {
+        alert("Неуспешна регистрација! Обидете се повторно.");
+      }
+    } catch (error) {
+      console.error("Грешка при регистрација: ", error);
+    }
+  }
 
   function handleKeyUp(event, action, elementId) {
     if (event.key === "Enter") {
@@ -25,19 +73,6 @@ function Register() {
         document.getElementById(elementId).focus();
       }
     }
-  }
-
-  async function registerWithEmailAndPassword(
-    name,
-    email,
-    password1,
-    password2
-  ) {
-    if (password1 !== password2) {
-      alert("Passwords don't match");
-      return;
-    }
-    alert("Not implemented yet");
   }
 
   return (
