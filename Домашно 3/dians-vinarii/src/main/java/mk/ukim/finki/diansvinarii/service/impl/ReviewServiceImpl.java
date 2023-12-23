@@ -56,7 +56,7 @@ public class ReviewServiceImpl implements ReviewService {
         try {
             winery = vinarijaService.findById(id).orElse(null);
         } catch (Exception e) {
-            throw new RuntimeException(e);//todo fix
+            throw new RuntimeException(e);
         }
         Review review = new Review(score, desc, winery, timestamp);
         return reviewRepository.save(review);

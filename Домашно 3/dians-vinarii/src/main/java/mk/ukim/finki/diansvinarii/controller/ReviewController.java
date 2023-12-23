@@ -7,13 +7,15 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @RestController
 @RequestMapping(value = "/api/review")
 @Validated
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ReviewController {
 
     private final ReviewServiceImpl reviewService;
@@ -40,14 +42,23 @@ public class ReviewController {
         return reviewService.getWineryAverageScoreById(id);
     }
 
-    @PostMapping("/add/{id}/")
-    public Review addReview(@PathVariable Long id, @RequestParam int score,
-                            @RequestParam (required = false) String desc,
-                            @RequestParam @DateTimeFormat LocalDateTime timestamp){
+    @PostMapping("/add/{id}")
+    public Review addReview(@PathVariable Long id,
+                            @RequestBody Map<String, Object> requestBody) {
+
+        String timestampString = (String) requestBody.get("timestamp");
+        System.out.println(timestampString);
+        LocalDateTime timestamp = LocalDateTime.parse(timestampString, DateTimeFormatter.ISO_DATE_TIME);
+
+        int score = (int) requestBody.get("score");
+        String desc = (String) requestBody.get("desc");
+
         return reviewService.create(id, score, desc, timestamp);
     }
 
-    @GetMapping("/byId/{id}")
+
+
+    @GetMapping("/get/{id}")
     public Review getReview(@PathVariable Long id){
         return reviewService.findById(id);
     }
