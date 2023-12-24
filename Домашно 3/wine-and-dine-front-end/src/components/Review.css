@@ -22,8 +22,9 @@
 }
 
 h1{
-    display: inline;
+    display: inline-block;
     padding-left: 0.5rem;
+    margin: 0;
 }
 h4{
     color: #454745;
@@ -31,4 +32,8 @@ h4{
     padding: 0.3rem;
     text-align: center;
     font-weight: lighter;
+}
+
+#Review span{
+    vertical-align: middle;
 }

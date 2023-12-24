@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthContext";
 import "./Register.css";
 import "./Login.css";
+import {jwtDecode} from "jwt-decode";
 
 function Register() {
   const navigate = useNavigate();
@@ -28,10 +29,10 @@ function Register() {
     }
 
     if (
-      name.trim.length === 0 ||
-      email.trim.length === 0 ||
-      password1.trim.length === 0 ||
-      password2.trim.length === 0
+      name.trim().length === 0 ||
+      email.trim().length === 0 ||
+      password1.trim().length === 0 ||
+      password2.trim().length === 0
     ) {
       alert("Ве молиме пополнете ги сите полиња!");
       return;
@@ -46,7 +47,7 @@ function Register() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            name: name,
+            firstName: name,
             email: email,
             password: password1,
           }),
@@ -56,9 +57,9 @@ function Register() {
       if (response.ok) {
         alert("Успешно се регистриравте!");
         const data = await response.json();
-        setUser(data.token);
+        setUser(jwtDecode(data.token));
         localStorage.setItem("accessToken", data.token);
-        navigate("/");
+        navigate("/login");
       } else {
         alert("Неуспешна регистрација! Обидете се повторно.");
       }

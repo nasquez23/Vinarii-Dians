@@ -34,7 +34,7 @@ function RoutingMachineControl({ waypoints }) {
       lineOptions: {
         styles: [
           {
-            color: "#e03838",
+            color: "#3873e0",
           },
         ],
       },
