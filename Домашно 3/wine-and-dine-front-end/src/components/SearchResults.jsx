@@ -43,8 +43,8 @@ export default function SearchResults() {
     <div id={"resultsContainer"}>
       {wineries.length === 0
         ? "No results"
-        : wineries.map((marker) => (
-            <Result winery={marker} key={marker.name} />
+        : wineries.map((marker, index) => (
+            <Result key={index} winery={marker} />
           ))}
     </div>
   );
