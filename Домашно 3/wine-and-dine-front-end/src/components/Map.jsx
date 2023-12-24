@@ -5,6 +5,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { MapContext } from "../MapContext";
 import L, { Icon } from "leaflet";
 import "leaflet-routing-machine";
+import 'lrm-graphhopper'
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -29,14 +30,15 @@ function RoutingMachineControl({ waypoints }) {
 
     const routingControl = L.Routing.control({
       waypoints,
+      router: L.Routing.graphHopper('455050f4-c992-4611-94f6-aef40dbe32b8'),
       lineOptions: {
         styles: [
           {
-            color: "#757de8",
+            color: "#e03838",
           },
         ],
       },
-    });
+    })
 
     routingControl.addTo(map);
 
@@ -84,7 +86,9 @@ export default function Map() {
   const {highlighted, setHighlighted} = useContext(MapContext);
   const {displayRoute} = useContext(MapContext);
 
+
   const [map, setMap] = useState(null);
+  const [spinner, setSpinner] = useState(false);
 
 
   useEffect(() => {
