@@ -1,9 +1,9 @@
-import './Footer.css';
+import "./Footer.css";
 
 const Footer = () => {
   return (
     <footer className="footer">
-      <p>© 2023</p>
+      <p>2023 © Wine and Dine</p>
     </footer>
   );
 };

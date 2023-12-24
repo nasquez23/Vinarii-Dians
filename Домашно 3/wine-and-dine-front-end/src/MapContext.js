@@ -7,12 +7,16 @@ const MapDataProvider = ({ children }) => {
     const [longitude, setLongitude] = useState(21.0);
     const [highlighted, setHighlighted] = useState(null);
     const [wineries, setWineries] = useState([]);
+    const [position, setPosition] = useState(null);
+    const [displayRoute, setDisplayRoute] = useState(false);
 
     const value= {
         latitude, setLatitude,
         longitude, setLongitude,
         wineries, setWineries,
-        highlighted, setHighlighted
+        highlighted, setHighlighted,
+        position, setPosition,
+        displayRoute, setDisplayRoute
     };
 
     return (
