@@ -17,7 +17,7 @@ export default function Searchbar() {
 
   async function search() {
     const response = await fetch(
-      "http://localhost:8080/api/search?query=" + searchTerm
+      "http://localhost:3005/api/search?query=" + searchTerm
     );
     const data = await response.json();
     setWineries(data);

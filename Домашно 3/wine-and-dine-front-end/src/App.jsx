@@ -10,6 +10,7 @@ import { AuthProvider } from "./AuthContext";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Footer from "./components/Footer";
+import {MapDataProvider} from "./MapContext";
 //import image from './images/background-image.png';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
     <div className="app">
       <AuthProvider>
         <Header />
+        <MapDataProvider>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -26,6 +28,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/*" element={<Home />} />
         </Routes>
+        </MapDataProvider>
       </AuthProvider>
       <Footer />
     </div>
