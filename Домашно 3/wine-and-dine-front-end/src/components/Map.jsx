@@ -1,9 +1,10 @@
 import "./Map.css";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import React, { useContext, useEffect, useState } from "react";
 import { MapContext } from "../MapContext";
 import L, { Icon } from "leaflet";
+import "leaflet-routing-machine";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -19,8 +20,36 @@ function Highlight({ mark, map }) {
     map.setView([41.609, 21.745], 8);
   } else map.setView([mark.latitude, mark.longitude], 13);
 }
+
+function RoutingMachineControl({ waypoints }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (!map) return;
+
+    const routingControl = L.Routing.control({
+      waypoints,
+      lineOptions: {
+        styles: [
+          {
+            color: "#757de8",
+          },
+        ],
+      },
+    });
+
+    routingControl.addTo(map);
+
+    return () => {
+      map.removeControl(routingControl);
+    };
+  }, [map, waypoints]);
+
+  return null;
+}
+
 function LocationMarker() {
-  const [position, setPosition] = useState(null);
+  const {position, setPosition} = useContext(MapContext);
 
   const map = useMap();
 
@@ -35,59 +64,64 @@ function LocationMarker() {
   }, [map]);
 
   return position === null ? null : (
-    <Marker
-      position={position}
-      icon={
-        new Icon({
-          iconUrl: require("../images/marker.png"),
-          iconAnchor: [24, 48],
-        })
-      }
-    >
-      <Popup>Your location.</Popup>
-    </Marker>
+      <Marker
+          position={position}
+          icon={
+            new Icon({
+              iconUrl: require("../images/marker.png"),
+              iconAnchor: [24, 48],
+            })
+          }
+      >
+        <Popup>Your location.</Popup>
+      </Marker>
   );
 }
 
 export default function Map() {
+  const {position, setPosition} = useContext(MapContext);
   const { wineries } = useContext(MapContext);
-  const { highlighted, setHighlighted } = useContext(MapContext);
+  const {highlighted, setHighlighted} = useContext(MapContext);
+  const {displayRoute} = useContext(MapContext);
 
   const [map, setMap] = useState(null);
-  const [location, setLocation] = useState(null);
+
 
   useEffect(() => {
     if (wineries.length === 1) {
-      console.log("yes");
       setHighlighted(wineries[0]);
     } else {
       setHighlighted(null);
     }
-    console.log("size: ", wineries.length);
   }, [wineries]);
 
-  useEffect(() => {}, []);
 
   return (
-    <MapContainer center={[41.609, 21.745]} zoom={8} ref={setMap}>
-      <TileLayer
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      {wineries.map((mar) => (
-        <Marker position={[mar.latitude, mar.longitude]}>
-          <Popup>
-            <h3>{mar.name}</h3>
-            <div>{mar.phone}</div>
-            <div>
-              {mar.openHours} - {mar.closeHours}
-            </div>
-          </Popup>
-        </Marker>
-      ))}
+      <MapContainer center={[41.609, 21.745]} zoom={8} ref={setMap}>
+        <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {highlighted!=null && displayRoute && <RoutingMachineControl
+        waypoints={[
+        L.latLng(position),
+        L.latLng(highlighted.latitude, highlighted.longitude), // Example destination point
+        ]}
+        />}
+        {wineries.map((mar) => (
+            <Marker position={[mar.latitude, mar.longitude]} key={mar.id}>
+              <Popup>
+                <h3>{mar.name}</h3>
+                <div>{mar.phone}</div>
+                <div>
+                  {mar.openHours} - {mar.closeHours}
+                </div>
+              </Popup>
+            </Marker>
+        ))}
 
-      <Highlight mark={highlighted} map={map} />
-      <LocationMarker />
-    </MapContainer>
+        <Highlight mark={highlighted} map={map} />
+        <LocationMarker />
+      </MapContainer>
   );
 }

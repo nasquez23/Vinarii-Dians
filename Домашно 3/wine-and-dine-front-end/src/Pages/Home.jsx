@@ -10,15 +10,15 @@ import {AuthContext} from "../AuthContext";
 const Home = () => {
   const {highlighted} = useContext(MapContext);
   const {position} = useContext(MapContext);
+  const {displayRoute, setDisplayRoute} = useContext(MapContext);
+
+  const {user} = useContext(AuthContext);
 
   const [display, setDisplay] = useState(null);
   const [reviewData, setReviewData] = useState([]);
   const [reviewScore, setReviewScore] = useState(0);
   const [newReviewDesc, setNewReviewDesc] = useState("");
   const [newReviewScore, setNewReviewScore] = useState(0);
-
-
-  const {user} = useContext(AuthContext);
 
   useEffect(() => {
       if(highlighted==null) setDisplay(null);
@@ -33,19 +33,21 @@ const Home = () => {
   const toggleRoute = () => {
       if(highlighted!=null) {
           if(position!=null){
-              fetchReviews().then(setDisplay("read"));
-              fetchScore();
+              setDisplayRoute(!displayRoute);
+              console.log('displayRoute: ', displayRoute);
+              setDisplay("route")
           }else{
-              alert("Мора да дозволите пристап до вашата локација, за да добиете рута до избраната винарија")
+              setDisplayRoute(false);
+              alert("Мора да дозволите пристап до вашата локација, за да добиете рута до избраната винарија.")
           }
-
-
+      }else {
+          setDisplayRoute(false);
       }
   };
 
   async function fetchReviews() {
       const response = await fetch(
-          "http://localhost:3000/api/review/all/" + highlighted.id
+          "/api/review/all/" + highlighted.id
       );
       const data = await response.json();
       setReviewData(data);
@@ -53,7 +55,7 @@ const Home = () => {
 
   async function fetchScore() {
     const response = await fetch(
-        "http://localhost:3000/api/review/score/" + highlighted.id
+        "/api/review/score/" + highlighted.id
     );
     const data = await response.json();
     setReviewScore(data);
@@ -61,7 +63,7 @@ const Home = () => {
 
   async function addReview(){
       try {
-          const response = await fetch("http://localhost:3000/api/review/add/" + highlighted.id, {
+          const response = await fetch("/api/review/add/" + highlighted.id, {
               method: "POST",
               headers: {
                   "Content-Type": "application/json",
@@ -83,7 +85,7 @@ const Home = () => {
       } catch (error) {
           console.error("Error adding review:", error);
       }
-      setNewReviewScore(0);
+      setNewReviewScore(3);
       setNewReviewDesc("");
   }
 
