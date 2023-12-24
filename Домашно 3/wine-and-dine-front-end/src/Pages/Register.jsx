@@ -10,7 +10,7 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
-  const {user} = useContext(AuthContext);
+  const {user, setUser} = useContext(AuthContext);
 
   useEffect(() => {
     if (user) navigate("/");
@@ -39,7 +39,7 @@ function Register() {
 
     try {
       const response = await fetch(
-        "http://localhost:8080/api/v1/auth/register",
+        "/api/auth/register",
         {
           method: "POST",
           headers: {
@@ -55,7 +55,10 @@ function Register() {
 
       if (response.ok) {
         alert("Успешно се регистриравте!");
-        navigate("/login");
+        const data = await response.json();
+        setUser(data.token);
+        localStorage.setItem("accessToken", data.token);
+        navigate("/");
       } else {
         alert("Неуспешна регистрација! Обидете се повторно.");
       }

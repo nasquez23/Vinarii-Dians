@@ -28,7 +28,7 @@ function Login() {
 
   async function logInWithEmailAndPassword(email, password) {
     try {
-      const response = await fetch("http://localhost:8080/api/v1/auth/login", {
+      const response = await fetch('/api/auth/login', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,9 +37,10 @@ function Login() {
       });
 
       if (response.ok) {
-        const userData = await response.json();
-        setUser(email);
-        console.log(userData);
+        const data = await response.json();
+        const token = data.token;
+        localStorage.setItem("accessToken", token);
+        setUser(token);
         alert("Успешно се најавивте!");
         navigate("/profile");
       } else {
