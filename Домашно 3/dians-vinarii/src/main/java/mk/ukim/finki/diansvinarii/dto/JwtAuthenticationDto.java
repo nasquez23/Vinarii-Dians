@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 public class JwtAuthenticationDto {
     private String token;
     private String refreshToken;
-
-
+    private Long userId;
+    private String userEmail;
+    private String firstName;
 }

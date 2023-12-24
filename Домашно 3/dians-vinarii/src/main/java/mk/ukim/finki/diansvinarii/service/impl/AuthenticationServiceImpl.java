@@ -11,7 +11,6 @@ import mk.ukim.finki.diansvinarii.model.User;
 import mk.ukim.finki.diansvinarii.repository.UserRepo;
 import mk.ukim.finki.diansvinarii.service.AuthenticationService;
 import mk.ukim.finki.diansvinarii.service.JWTService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,8 +30,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public User signUp(SignUpRequest signUpRequest){
         User user=new User();
         user.setEmail(signUpRequest.getEmail());
-        user.setFirstname(signUpRequest.getFirstName());
-        user.setSecondname(signUpRequest.getSecondName());
+        user.setFirstName(signUpRequest.getFirstName());
+        System.out.println("Sign up req:"+signUpRequest);
         user.setRoles(Role.USER);
         user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
         return userRepository.save(user);

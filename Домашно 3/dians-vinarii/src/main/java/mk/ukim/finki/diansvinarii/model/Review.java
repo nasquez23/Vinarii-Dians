@@ -28,13 +28,15 @@ public class Review {
     @DateTimeFormat()
     private LocalDateTime timestamp;
 
-    //todo private User createdBy;
+    @ManyToOne
+    private User createdBy;
 
-    public Review(int score, String description, Vinarija winery, LocalDateTime timestamp) {
+    public Review(int score, String description, Vinarija winery, LocalDateTime timestamp, User createdBy) {
         this.score = score;
         this.description = description;
         this.winery = winery;
         this.timestamp = timestamp;
+        this.createdBy = createdBy;
     }
 
 }

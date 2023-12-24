@@ -1,10 +1,10 @@
 package mk.ukim.finki.diansvinarii.service.impl;
 
 import mk.ukim.finki.diansvinarii.model.Review;
+import mk.ukim.finki.diansvinarii.model.User;
 import mk.ukim.finki.diansvinarii.model.Vinarija;
 import mk.ukim.finki.diansvinarii.repository.ReviewRepository;
 import mk.ukim.finki.diansvinarii.service.ReviewService;
-import mk.ukim.finki.diansvinarii.service.VinarijaService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -14,10 +14,12 @@ import java.util.List;
 public class ReviewServiceImpl implements ReviewService {
     private final ReviewRepository reviewRepository;
     private final VinarijaServiceImpl vinarijaService;
+    private final UserServiceImpl userService;
 
-    public ReviewServiceImpl(ReviewRepository reviewRepository, VinarijaServiceImpl vinarijaService) {
+    public ReviewServiceImpl(ReviewRepository reviewRepository, VinarijaServiceImpl vinarijaService, UserServiceImpl userService) {
         this.reviewRepository = reviewRepository;
         this.vinarijaService = vinarijaService;
+        this.userService = userService;
     }
 
     public List<Review> findAllByWinery_Id(Long id){
@@ -51,14 +53,16 @@ public class ReviewServiceImpl implements ReviewService {
         return reviewRepository.save(review);
     }
 
-    public Review create(Long id, int score, String desc, LocalDateTime timestamp) {
+    public Review create(Long id, int score, String desc, LocalDateTime timestamp, Long userId) {
         Vinarija winery = null;
+        User createdBy = null;
         try {
             winery = vinarijaService.findById(id).orElse(null);
+            createdBy = userService.findById(userId);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        Review review = new Review(score, desc, winery, timestamp);
+        Review review = new Review(score, desc, winery, timestamp, createdBy);
         return reviewRepository.save(review);
     }
 

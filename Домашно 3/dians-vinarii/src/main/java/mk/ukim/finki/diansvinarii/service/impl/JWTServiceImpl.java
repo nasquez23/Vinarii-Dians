@@ -7,6 +7,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 
+import mk.ukim.finki.diansvinarii.model.User;
 import mk.ukim.finki.diansvinarii.service.JWTService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -22,10 +23,18 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class JWTServiceImpl implements JWTService {
     public String generateToken(UserDetails userDetails){
+        Claims claims = Jwts.claims().setSubject(userDetails.getUsername());
+        claims.put("firstName", ((User) userDetails).getFirstName());
+        claims.put("id", ((User) userDetails).getId());
+
+        System.out.println("FIRST NAME:" + ((User) userDetails));
+        System.out.println("no cast:" + (userDetails));
+
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis()+1000*60*24))
+                .setClaims(claims)
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)
                 .compact();
 

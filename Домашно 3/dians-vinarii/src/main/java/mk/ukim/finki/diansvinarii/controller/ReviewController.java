@@ -52,8 +52,10 @@ public class ReviewController {
 
         int score = (int) requestBody.get("score");
         String desc = (String) requestBody.get("desc");
+        Long userId = Long.valueOf((Integer) requestBody.get("userId"));
 
-        return reviewService.create(id, score, desc, timestamp);
+
+        return reviewService.create(id, score, desc, timestamp, userId);
     }
 
 
