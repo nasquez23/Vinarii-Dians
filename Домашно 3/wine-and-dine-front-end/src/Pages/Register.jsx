@@ -10,7 +10,7 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
-  const { user } = useContext(AuthContext);
+  const {user} = useContext(AuthContext);
 
   useEffect(() => {
     if (user) navigate("/");
