@@ -8,28 +8,15 @@ const Contact = () => {
   return (
     <div className="submit-form">
       <h1>Контакт</h1>
-      <form onSubmit={submitHandler}>
-        <label htmlFor="name">
-          Име:
-          <input type="text" name="name" />
+      <form id="mail_form" action="mailto:winendine@gmail.com" method="get" enctype="text/plain" target="_blank">
+        <label for="subject">Наслов</label>
+        <input type="text" id="subject" name="subject" placeholder="Внесете ја целта на пораката.."/>
+        <label for="body">Порака:
+          <textarea type="text" name="body" id="body" placeholder="Внесете ја вашата порака..."></textarea>
         </label>
-        <label htmlFor="surname">
-          Презиме:
-          <input type="text" name="surname" />
-        </label>
-        <label htmlFor="email">
-          Емаил:
-          <input type="email" name="email" />
-        </label>
-        <label htmlFor="message">
-          Порака:
-          <textarea name="message"></textarea>
-        </label>
-
-        <input type="submit" value="Прати" />
+        <input type="submit" value="Испрати порака"/>
       </form>
-    </div>
-  );
+    </div>);
 };
 
 export default Contact;
