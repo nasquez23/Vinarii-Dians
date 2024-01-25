@@ -1,0 +1,40 @@
+.register-wrapper {
+  text-align: center;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin: 100px auto 200px auto;
+}
+
+.register-wrapper h1 {
+  font-family: Mistral;
+  font-size: 60px;
+  color: #454745;
+}
+
+#inputFields {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+#inputFields input {
+  width: 650px;
+  border: 1px solid #454745;
+}
+
+.rec_button {
+  width: 35%;
+  border-radius: 5px;
+  border: none;
+  height: 50px;
+  font-size: 20px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.rec_button:hover {
+  background-color: #e1c16e;
+  color: white;
+}

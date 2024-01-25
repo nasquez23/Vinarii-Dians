@@ -4,9 +4,10 @@ import { MapContext } from "../MapContext";
 import image from "../images/search-icon.png";
 
 export default function Searchbar() {
-  const { wineries, setWineries } = useContext(MapContext);
+  const { setWineries } = useContext(MapContext);
   const [searchTerm, setSearchTerm] = useState("");
 
+  // Бришење на полето за пребарување
   const clear = () => {
     setSearchTerm("");
     search();
@@ -15,6 +16,7 @@ export default function Searchbar() {
     search();
   }, []);
 
+  // Метод за пребарување на винарија
   async function search() {
     const response = await fetch(
       "http://localhost:3005/api/search?query=" + searchTerm
@@ -24,7 +26,7 @@ export default function Searchbar() {
   }
 
   return (
-    <div id={"Search"}>
+    <div id="Search">
       <input
         type={"text"}
         name={"winery-search"}

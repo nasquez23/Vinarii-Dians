@@ -4,14 +4,12 @@ import Home from "./Pages/Home";
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
 import Header from "./components/Header";
-//import Footer from './components/Footer';
 import Profile from "./Pages/Profile";
 import { AuthProvider } from "./AuthContext";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Footer from "./components/Footer";
 import {MapDataProvider} from "./MapContext";
-//import image from './images/background-image.png';
 
 function App() {
   return (
