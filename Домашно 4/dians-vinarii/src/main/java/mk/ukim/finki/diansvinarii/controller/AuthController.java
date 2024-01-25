@@ -1,6 +1,6 @@
 package mk.ukim.finki.diansvinarii.controller;
-import lombok.RequiredArgsConstructor;
 
+import lombok.RequiredArgsConstructor;
 import mk.ukim.finki.diansvinarii.dto.JwtAuthenticationDto;
 import mk.ukim.finki.diansvinarii.dto.RefreshTokenRequest;
 import mk.ukim.finki.diansvinarii.dto.SignInRequest;
@@ -16,14 +16,20 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthenticationService authenticationService;
+
+    // Регистрирање на корисник
     @PostMapping("/register")
     public ResponseEntity<User> signUp(@RequestBody SignUpRequest signUpRequest){
         return ResponseEntity.ok(authenticationService.signUp(signUpRequest));
     }
+
+    // Најава на корисник
     @PostMapping("/login")
     public ResponseEntity<JwtAuthenticationDto> signIn(@RequestBody SignInRequest signInRequest){
         return ResponseEntity.ok(authenticationService.login(signInRequest));
     }
+
+    // Освежување на JWT токенот
     @PostMapping("/refresh")
     public ResponseEntity<JwtAuthenticationDto> refresh(@RequestBody RefreshTokenRequest refreshTokenRequest){
         return ResponseEntity.ok(authenticationService.refreshToken(refreshTokenRequest));

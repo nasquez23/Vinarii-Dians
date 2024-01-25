@@ -4,7 +4,6 @@ import mk.ukim.finki.diansvinarii.model.Vinarija;
 import mk.ukim.finki.diansvinarii.repository.VinarijaRepository;
 import mk.ukim.finki.diansvinarii.service.VinarijaService;
 import org.springframework.stereotype.Service;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -30,7 +29,6 @@ public class VinarijaServiceImpl implements VinarijaService {
         } else {
             return vinarijaRepository.findAll();
         }
-
     }
 
     @Override
@@ -62,6 +60,7 @@ public class VinarijaServiceImpl implements VinarijaService {
     public void deleteVinarija(Long id) {
         vinarijaRepository.deleteById(id);
     }
+
     @Override
     public void editVinarija(Long id, String name, String phone, String website, Double longitude, Double latitude, String openHours, String closeHours) throws Exception {
         Vinarija vinarija = vinarijaRepository.findById(id).orElseThrow(Exception::new);
@@ -79,11 +78,11 @@ public class VinarijaServiceImpl implements VinarijaService {
 
     private void initializeData(){
         try (Scanner scanner = new Scanner(new File("src/main/resources/wineries.csv"))) {
-            // Preskokni naslovi
+            // Прескокни наслови
             if (scanner.hasNextLine()) {
                 scanner.nextLine();
             }
-            //Citaj csv
+            // Читај csv линија по линија
             while (scanner.hasNextLine()) {
                 vinarijaRepository.save(Vinarija.csvItemToVinarija(scanner.nextLine()));
             }

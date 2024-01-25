@@ -7,13 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api")
 @Validated
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 public class VinarijaController {
 
     private final VinarijaRepository vinarijaRepository;
@@ -24,13 +23,16 @@ public class VinarijaController {
         this.vinarijaRepository = vinarijaRepository;
     }
 
+    // Метод за добивање на листа со винарии според барање
     @GetMapping("/search")
     public ResponseEntity<List<Vinarija>> getWineriesbySearch(@RequestParam (required = false) String query){
-        if(query!=null && !query.trim().isEmpty()) return new ResponseEntity<>(vinarijaRepository.findAllByName(query), HttpStatus.OK);
+        if(query != null && !query.trim().isEmpty()) 
+            return new ResponseEntity<>(vinarijaRepository.findAllByName(query), HttpStatus.OK); // Ако постои барање, врати листа со винарии што го задоволуваат
 
-        return new ResponseEntity<>(vinarijaRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(vinarijaRepository.findAll(), HttpStatus.OK);  // Во спротивно, врати ги сите винарии
     }
 
+    // Метод за добивање на листа со сите винарии
     @GetMapping("/all")
     public ResponseEntity<List<Vinarija>> getAllWineries(){
         return new ResponseEntity<>(vinarijaRepository.findAll(), HttpStatus.OK);
@@ -45,5 +47,4 @@ public class VinarijaController {
     public String toString() {
         return super.toString();
     }
-
 }

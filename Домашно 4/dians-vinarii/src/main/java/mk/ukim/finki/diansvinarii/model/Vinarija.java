@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
 
 @Data
@@ -33,7 +32,6 @@ public class Vinarija implements Serializable {
         this.openHours = openHours;
         this.closeHours = closeHours;
     }
-
 
     public void setName(String name) {
         this.name = name;

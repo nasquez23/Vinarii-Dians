@@ -5,9 +5,9 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.List;
+
 @Data
 @Entity
 @Table(name = "user-registration")
@@ -19,13 +19,11 @@ public class User implements UserDetails {
     private String email;
     private String password;
 
-
     private Role roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(roles.name()));
-
     }
 
     @Override
@@ -52,5 +50,4 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 }

@@ -5,7 +5,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-
 import mk.ukim.finki.diansvinarii.service.JWTService;
 import mk.ukim.finki.diansvinarii.service.UserService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,7 +15,6 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.thymeleaf.util.StringUtils;
-
 import java.io.IOException;
 
 @Component
@@ -31,18 +29,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String jwt;
         final String useremail;
 
+        // Провери дали заглавјето е празно или не почнува со "Bearer "
         if(StringUtils.isEmpty(authHeader) || !authHeader.startsWith("Bearer ")){
-            filterChain.doFilter(request, response);
+            filterChain.doFilter(request, response); // Ако условот е исполнет, продолжи со следните филтри
             return;
         }
 
-        jwt = authHeader.substring(7);
-        useremail = jwtService.extractUserName(jwt);
+        jwt = authHeader.substring(7);  // Извлекување JWT токен од заглавието "Authorization"
+        useremail = jwtService.extractUserName(jwt);  // Извлекување корисничко име од JWT токенот
 
+        // Провери дали корисничкото име не е празно и автентикацијата не постои во контекстот
         if(!StringUtils.isEmpty(useremail) && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = userService.userDetailsService().loadUserByUsername(useremail);
 
             if(jwtService.isTokenValid(jwt, userDetails)){
+                // Креирај нов контекст за сигурност и автентицирај го корисникот
                 SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
                 UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -50,6 +51,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.setContext(securityContext);
             }
         }
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request,response); // Продолжи со следните филтри
     }
 }

@@ -27,12 +27,15 @@ class CorsConfig {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
+        // Конфигурација на поставки за CORS филтерот
         config.setAllowCredentials(true);
         config.addAllowedOrigin("http://localhost:3005");
         config.addAllowedOrigin("http://localhost:3000");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
+        // Регистрација на CORS филтерот за сите патеки
         source.registerCorsConfiguration("/**", config);
+
         return new CorsFilter(source);
     }
 }
@@ -47,21 +50,21 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                .headers(headers -> headers
-                        .frameOptions().sameOrigin() // Set X-Frame-Options to 'SAMEORIGIN'
-                )
-                .authorizeHttpRequests(request->request.requestMatchers("/**").permitAll()
-                ).sessionManagement(manager->manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider()).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .headers(headers -> headers.frameOptions().sameOrigin()) // Конфигурирање на заглавја
+                .authorizeHttpRequests(request -> request.requestMatchers("/**").permitAll()) // Конфигурирање за авторизација на сите патеки
+                .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Конфигурирање на управувач на сесија
+                .authenticationProvider(authenticationProvider()).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // Додавање на провајдер за автентикација и филтер за JWT
 
         return http.build();
     }
 
     @Bean
     public AuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider authenticationProvider=new DaoAuthenticationProvider();
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        // Поставување на сервис за корисници и кодер за лозинки
         authenticationProvider.setUserDetailsService(userService.userDetailsService());
         authenticationProvider.setPasswordEncoder(passwordEncoder());
+
         return authenticationProvider;
     }
 
