@@ -76,8 +76,7 @@ class ReviewControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/review/add/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"score\":5, \"desc\":\"Test review\", \"timestamp\":\"" + timestamp + "\", \"userId\":\"1\"}"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test

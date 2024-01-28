@@ -1,6 +1,8 @@
 package mk.ukim.finki.diansvinarii.service;
 
 import mk.ukim.finki.diansvinarii.model.Review;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ReviewService {
@@ -19,4 +21,5 @@ public interface ReviewService {
     public Review findById(Long id);
     
     public void delete(Review review);
+    public Review create(Long id, int score, String desc, LocalDateTime timestamp, Long userId);
 }
