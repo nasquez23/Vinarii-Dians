@@ -21,24 +21,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-@Configuration
-class CorsConfig {
-    @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        // Конфигурација на поставки за CORS филтерот
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:3005");
-        config.addAllowedOrigin("http://localhost:3000");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-        // Регистрација на CORS филтерот за сите патеки
-        source.registerCorsConfiguration("/**", config);
-
-        return new CorsFilter(source);
-    }
-}
 
 @Configuration
 @EnableWebSecurity
