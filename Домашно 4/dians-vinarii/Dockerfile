@@ -1,8 +1,14 @@
-FROM openjdk:17-jdk-slim
-WORKDIR /spring-backend
+# Use an official OpenJDK runtime as a base image
+FROM openjdk:11-jre-slim
 
+# Set the working directory in the container
+WORKDIR /app
 
-COPY target/dians-vinarii-0.0.1-SNAPSHOT.jar .
+# Copy the JAR file into the container
+COPY target/your-spring-app.jar /app/app.jar
 
-EXPOSE 3005
-CMD ["java", "-jar", "dians-vinarii-0.0.1-SNAPSHOT.jar"]
+# Expose the port that the Spring Boot application will run on
+EXPOSE 8080
+
+# Command to run the Spring Boot application
+CMD ["java", "-jar", "app.jar"]
