@@ -57,7 +57,7 @@ public class ReviewController {
         LocalDateTime timestamp = LocalDateTime.parse(timestampString, DateTimeFormatter.ISO_DATE_TIME);
         int score = (int) requestBody.get("score");
         String desc = (String) requestBody.get("desc");
-        Long userId = Long.valueOf((String) requestBody.get("userId"));
+        Long userId = Long.valueOf((Integer) requestBody.get("userId"));
 
         return reviewService.create(id, score, desc, timestamp, userId);
     }
