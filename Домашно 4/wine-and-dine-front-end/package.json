@@ -43,5 +43,9 @@
   },
   "devDependencies": {
     "@types/leaflet": "^1.9.8"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
   }
 }
